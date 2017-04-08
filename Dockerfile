@@ -14,7 +14,7 @@ ARG gid=1001
 ARG GRAFANA_VERSION
 ENV GRAFANA_VERSION ${GRAFANA_VERSION:-4.2.0}
 
-ARG DOWNLOAD_URL=https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${RELEASE_VERSION}_amd64.deb
+ARG DOWNLOAD_URL=https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${GRAFANA_VERSION}_amd64.deb
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container, 
