@@ -2,6 +2,19 @@ FROM debian:jessie
 
 ARG DOWNLOAD_URL
 
+GRAFANA_HOME:=${GRAFANA_HOME:/var/share/grafana}
+
+ARG user=grafana
+ARG group=grafana
+ARG uid=1001
+ARG gid=1001
+
+# Jenkins is run with user `jenkins`, uid = 1000
+# If you bind mount a volume from the host or a data container, 
+# ensure you use the same uid
+RUN groupadd -g ${gid} ${group} \
+    && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+
 RUN apt-get update && \
     apt-get -y --no-install-recommends install libfontconfig curl ca-certificates && \
     apt-get clean && \
