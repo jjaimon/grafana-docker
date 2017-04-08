@@ -20,6 +20,7 @@ ARG DOWNLOAD_URL=https://s3-us-west-2.amazonaws.com/grafana-releases/release/gra
 # If you bind mount a volume from the host or a data container, 
 # ensure you use the same uid
 RUN groupadd -g ${gid} ${group} \
+    && mkdir "$GRAFANA_HOME" && \
     && useradd -d "$GRAFANA_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
 RUN apt-get update && \
@@ -34,7 +35,7 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-VOLUME ["/var/lib/grafana", "/var/log/grafana", "/etc/grafana"]
+VOLUME ["/var/share/grafana", "/etc/grafana"]
 
 EXPOSE 3000
 

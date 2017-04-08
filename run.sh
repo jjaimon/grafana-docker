@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
-: "${GF_PATHS_DATA:=/var/lib/grafana}"
-: "${GF_PATHS_LOGS:=/var/log/grafana}"
-: "${GF_PATHS_PLUGINS:=/var/lib/grafana/plugins}"
+: "${GF_PATHS_DATA:=/var/share/grafana}"
+: "${GF_PATHS_LOGS:=/var/share/grafana/logs}"
+: "${GF_PATHS_PLUGINS:=/var/share/grafana/plugins}"
 
 chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_LOGS"
 
