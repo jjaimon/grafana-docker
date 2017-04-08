@@ -4,6 +4,13 @@
 : "${GF_PATHS_LOGS:=/var/share/grafana/logs}"
 : "${GF_PATHS_PLUGINS:=/var/share/grafana/plugins}"
 
+#Create above directories if dont exist and set permissions
+#
+for dir in "$GF_PATHS_DATA" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS"; do
+  if [ ! -d "${dir}" ]; then
+    mkdir -p "${dir}"
+  fi
+done
 chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_LOGS"
 
 if [ ! -z ${GF_AWS_PROFILES+x} ]; then

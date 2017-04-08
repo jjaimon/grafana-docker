@@ -20,20 +20,20 @@ ARG DOWNLOAD_URL=https://s3-us-west-2.amazonaws.com/grafana-releases/release/gra
 # If you bind mount a volume from the host or a data container, 
 # ensure you use the same uid
 RUN groupadd -g ${gid} ${group} \
-    && mkdir "$GRAFANA_HOME" && \
+    && mkdir -p "$GRAFANA_HOME"    \
     && useradd -d "$GRAFANA_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
-RUN apt-get update && \
-    apt-get -y --no-install-recommends install libfontconfig curl ca-certificates && \
-    apt-get install -y adduser libfontconfig && \
-    apt-get clean && \
-    curl ${DOWNLOAD_URL} > /tmp/grafana.deb && \
-    dpkg -i /tmp/grafana.deb && \
-    rm /tmp/grafana.deb && \
-    curl -L https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64 > /usr/sbin/gosu && \
-    chmod +x /usr/sbin/gosu && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update  \
+    && apt-get -y --no-install-recommends install libfontconfig curl ca-certificates \
+    && apt-get install -y adduser libfontconfig     \
+    && apt-get clean    \
+    && curl ${DOWNLOAD_URL} > /tmp/grafana.deb \
+    && dpkg -i /tmp/grafana.deb     \
+    && rm /tmp/grafana.deb          \
+    && curl -L https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64 > /usr/sbin/gosu  \
+    && chmod +x /usr/sbin/gosu      \
+    && apt-get autoremove -y        \
+    && rm -rf /var/lib/apt/lists/*
 
 VOLUME ["/var/share/grafana", "/etc/grafana"]
 
